@@ -10,41 +10,41 @@ docpadConfig = {
 
 	templateData:
         site:
-            url: 'http://troykershaw.com'
-            author: 'Troy Kershaw'
-            twitter: 'troykershaw'
-            twitterUrl: 'https://twitter.com/troykershaw'
-            github: 'troykershaw'
-            githubUrl: 'https://github.com/troykershaw'
-            email: 'hello@troykershaw.com'
-            emailUrl: 'mailto:hello@troykershaw.com'
+            url: 'http://www.ramjeeganti.com'
+            author: 'Ramjee Ganti'
+            twitter: 'gantir'
+            twitterUrl: 'https://twitter.com/gantir'
+            github: 'gantir'
+            githubUrl: 'https://github.com/gantir'
+            email: 'hello@ramjeeganti.com'
+            emailUrl: 'mailto:hello@ramjeeganti.com'
             feedUrl: '/feed'
-            title: 'A blog about F# - Troy Kershaw' 
-            description: 'A blog about F#'
-            tagline: 'A blog about F#'
+            title: 'Unknown Unknown -- rAmg' 
+            description: 'Unknown Unknown -- rAmg'
+            tagline: 'Unknown Unknown'
             nav: [
                 name: 'Home'
                 url: '/'
                 icon: 'icon-home'
             ,
-                name: 'Blog'
-                url: '/blog'
+                name: 'My Stories'
+                url: 'http://netherstories.blogspot.in/'
                 icon: 'icon-pencil'
             ]
             services:
-                twitterTweetButton: 'troykershaw'
-                twitterFollowButton: 'troykershaw'
-                githubFollowButton: 'troykershaw'
-                disqus: 'troykershaw'
+                twitterTweetButton: 'gantir'
+                twitterFollowButton: 'gantir'
+                githubFollowButton: 'gantir'
+                disqus: 'unknownunknown'
                 googleAnalytics: 'UA-40785803-1'
 
             social: [
                 name: 'Github'
-                url: 'https://github.com/troykershaw'
+                url: 'https://github.com/gantir'
                 icon: 'icon-github-sign'
             ,
                 name: 'Twitter'
-                url: 'https://twitter.com/troykershaw'
+                url: 'https://twitter.com/gantir'
                 icon: 'icon-twitter-sign'
             ,
                 name: 'Feed'
@@ -52,7 +52,7 @@ docpadConfig = {
                 icon: 'icon-rss-sign'
             ,
                 name: 'Email'
-                url: 'mailto:hello@troykershaw.com'
+                url: 'mailto:hello@ramjeeganti.com'
                 icon: 'icon-envelope'
             ]
             
