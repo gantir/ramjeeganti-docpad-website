@@ -27,6 +27,10 @@ docpadConfig = {
                 url: '/'
                 icon: 'icon-home'
             ,
+                name: 'About'
+                url: '/'
+                icon: 'icon-home'
+            ,
                 name: 'My Stories'
                 url: 'http://netherstories.blogspot.in/'
                 icon: 'icon-pencil'

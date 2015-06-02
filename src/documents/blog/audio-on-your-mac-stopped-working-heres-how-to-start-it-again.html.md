@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clean-post
 title: Audio on your Mac stopped working? Here's how to start it again
 description: If you have a Mac and your audio keeps stopping, I sincerely empathise with your pain. While I haven't got a solution for you, I can help you get it started again with rebooting.
 date: 2014-02-14T10:50

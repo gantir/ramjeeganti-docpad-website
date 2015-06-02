@@ -43,23 +43,10 @@ html(lang='en')
                     a.navbar-brand(href="index.html") Start Bootstrap
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right
-                        li
-                            a(href="index.html") Home
-                        li
-                            a(href="about.html") About
-                        li
-                            a(href="post.html") Sample Post
-                        li
-                            a(href="contact.html") Contact    
-        header.intro-header(style="background-image: url('/images/home-bg.jpg')")
-            .container
-                .row
-                    .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
-                        .site-heading
-                            h1= site.description
-                            hr.small
-                            span.subheading= site.tagline
-        hr
+                        each item in site.nav
+                            li
+                                a(href='#{item.url}', title='#{item.name}') #{item.name}
+
         != content
 
         <!-- Footer -->
