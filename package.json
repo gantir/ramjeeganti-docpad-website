@@ -13,6 +13,7 @@
     "docpad-plugin-eco": "~2.1.0",
     "docpad-plugin-highlightjs": "~2.3.0",
     "docpad-plugin-jade": "~2.9.0",
+    "docpad-plugin-less": "~2.4.1",
     "docpad-plugin-marked": "~2.3.0",
     "docpad-plugin-navlinks": "~2.0.4",
     "docpad-plugin-services": "~2.6.0",
