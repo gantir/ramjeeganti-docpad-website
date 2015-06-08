@@ -1,7 +1,9 @@
 {
-  "name": "troykershaw-website",
+  "name": "ramjeeganti-website",
   "version": "0.1.0",
-  "description": "My website at troykershaw.com",
+  "description": "My website at ramjeeganti.com",
+  "repository": "gantir/ramjeeganti-docpad-website",
+  "license": "MIT",
   "engines": {
     "node": "0.10",
     "npm": "1.2"
@@ -19,12 +21,15 @@
     "docpad-plugin-services": "~2.6.0",
     "docpad-plugin-stylus": "~2.9.0",
     "docpad-plugin-text": "~2.3.3",
+    "moment": "~2.10.3",
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.9",
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-clean":"~0.6.0",
+    "grunt-aws-s3":"~0.13.1",
     "grunt-css": "~0.4.1",
     "marked": "~0.2.9",
     "underscore": "~1.4.3"

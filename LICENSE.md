@@ -1,5 +1,10 @@
 # License
 
+Unless stated otherwise; all works are Copyright © 2015+ [Ramjee Ganti](http://www.ramjeeganti.com) (<hello@ramjeeganti.com>) and licensed [permissively](http://en.wikipedia.org/wiki/Permissive_free_software_licence) under the [MIT License](http://creativecommons.org/licenses/MIT/) for code and the [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/) for everything else (including content, media and design), enjoy!
+
+
+# License
+
 Unless stated otherwise; all works are Copyright © 2013+ [Troy Kershaw](http://troykershaw.com) (<hello@troykershaw.com>) and licensed [permissively](http://en.wikipedia.org/wiki/Permissive_free_software_licence) under the [MIT License](http://creativecommons.org/licenses/MIT/) for code and the [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/) for everything else (including content, media and design), enjoy!
 
 

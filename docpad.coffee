@@ -1,6 +1,11 @@
 # DocPad Configuration File
 # http://docpad.org/docs/config
 
+moment = require('moment')
+path = require('path')
+
+post_date_regex = new RegExp('([0-9]+-)*')
+
 # Define the DocPad Configuration
 docpadConfig = {
     # =================================
@@ -87,7 +92,10 @@ docpadConfig = {
             @site.keywords.concat(@document.keywords or []).join(', ')
 
         getGithubPath: ->
-            "https://github.com/troykershaw/troykershaw-website/edit/master/src/documents/#{@document.relativePath}"
+            "https://github.com/gantir/ramjeeganti-docpad-website/edit/master/src/documents/#{@document.relativePath}"
+
+        getFormattedDate: (date)  ->
+            moment(date).format 'D MMM YYYY'
 
     # Ignore Custom Patterns
     # Can be set to a regex of custom patterns to ignore from the scanning process
@@ -135,6 +143,47 @@ docpadConfig = {
             balUtil.spawn(command, {cwd:rootPath,output:true}, next)
             # Chain
             @
+
+        renderBefore: (opts) ->
+            console.log 'Starting Render Before'
+            posts = @docpad.getCollection('posts')
+            
+            posts.forEach (post) ->
+                originalFilename = post.get('outFilename')
+                if /^[dD][rR][aA][fF][tT]/.test(originalFilename)
+                    console.log 'skipped draft: ' + originalFilename
+                    post.set 'ignore', true
+                    post.getMeta().set 'ignore', true
+                return
+            count = 0
+            posts.forEach (post) ->
+                if post.get('ignore')
+                  return
+                originalFilename = post.get('outFilename')
+                originalOutPath = post.get('outDirPath')
+                console.log '**** ' + originalFilename
+                matches = /(\d\d\d\d)-(\d\d)-(\d\d)/.exec(originalFilename)
+                
+                if !matches || matches.length != 4
+                  # full match + year + month + day
+                  return
+                date = new Date(matches[1] + '-' + matches[2] + '-' + matches[3])
+                newFilename = originalFilename.replace(post_date_regex, '')
+                newOutPath = path.join(originalOutPath, matches[1], matches[2], matches[3], newFilename)
+                
+                newUrl = '/' + matches[1] + '/' + matches[2] + '/' + newFilename
+                # ensure original urls are kept
+                originalUrl = post.get('originalUrl')
+                if originalUrl and originalUrl != newUrl
+                  throw 'Urls do not match "' + originalUrl + '" <-> "' + newUrl + '"'
+                post.set 'outPath', newOutPath
+                post.setUrl newUrl
+                count = count + 1
+                return
+            console.log 'Processed posts count: ' + count
+            console.log ''
+            return
+
 }
 
 # Export the DocPad Configuration
