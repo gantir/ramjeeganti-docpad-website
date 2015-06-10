@@ -1,27 +1,26 @@
 ---
-layout: clean-default
+layout: default
 ---
-  header.intro-header(style="background-image: url('/images/home-bg.jpg')")
+    header.intro-header(style="background-image: url('/images/home-bg.jpg')")
+        .container
+            .row
+                .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                    .site-heading
+                        h1= site.description
+                        hr.small
+                        span.subheading= site.tagline
     .container
-      .row
-          .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
-              .site-heading
-                  h1= site.description
-                  hr.small
-                  span.subheading= site.tagline
-.posts.pure-g-r
-  h1.pure-u-1.content-subhead Blog
-  each post in getCollection("posts").toJSON()
-    section.post.pure-u-1
-      header.post-header
-        h2.post-title.pure-u-1
-          a(href='#{post.url}')= post.title
-        p.post-meta.pure-u-1
-          | Posted #{post.date.toDateString()} under 
-          each tag in post.tags
-            - var tagClass = tag.replace(' ', '-').toLowerCase()
-            span.post-tag(class="post-tag-#{tagClass}")= tag
-      .post-description.pure-u-1
-        p= post.description 
-          | 
-          a(href='#{post.url}') Keep reading...
+        .row
+            .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                each post in getCollection("posts").toJSON()
+                    .post-preview
+                        a(href='#{post.url}')
+                            h2.post-title= post.title
+                            h3.post-subtitle= post.description
+                        p.post-meta Posted by 
+                            a(href="#")= post.author 
+                            | &nbsp;on #{post.date.toDateString()}
+                    hr  
+                ul.pager
+                    li.next
+                        a(href="#") Older Posts &rarr;

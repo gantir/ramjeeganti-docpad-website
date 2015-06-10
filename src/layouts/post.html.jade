@@ -1,20 +1,20 @@
 ---
 layout: default
 ---
-article
-    p
-      h1= document.title 
-      a(href='#{getGithubPath()}',alt="Feel free to edit this post, particularly if you're fixing spelling mistakes!") Edit this post
-    p.post-meta.pure-u-1
-      | Posted 
-      time(pubdate, datetime='#{document.date.toUTCString()}') #{document.date.toDateString()}
-      |  under 
-      each tag in document.tags
-        - var tagClass = tag.replace(' ', '-').toLowerCase()
-        span.post-tag(class="post-tag-#{tagClass}")= tag
-    
-    != content
 
-    != getNavLinks()
-    != getDisqus()
+    header.intro-header(style="background-image: url('/images/post-bg.jpg')")
+        .container
+            .row
+                .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                    .post-heading
+                        h1= document.title
+                        h2.subheading
+                        span.meta Posted by 
+                            a(href="#")= document.author
+                            | &nbsp;on #{document.date.toDateString()}
 
+    article
+        .container
+            .row
+                .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                    != content

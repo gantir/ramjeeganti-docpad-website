@@ -1,64 +1,82 @@
 doctype html
 html(lang='en')
-  head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title= getPreparedTitle()
-    meta(name='description', content='#{getPreparedDescription()}')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='content-type', content='text/html', charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        
+        title= getPreparedTitle()
+        meta(name='description', content='#{getPreparedDescription()}')
+        meta(name='author' content='@#{site.author or ""}')
+        
+        != getBlock("meta").toHTML()
 
-    meta(name='twitter:card', content='summary')
-    meta(name='twitter:domain', content='#{site.url}')
-    meta(name='twitter:site', content='@#{site.twitter}')
-    meta(name='twitter:creator', content='@#{site.twitter}')
-    meta(name='twitter:title', content='#{document.title}')
-    meta(name='twitter:description', content='#{getPreparedDescription()}')
+        link(rel='shortcut icon', href='ico/favicon.ico')
+        link(rel='apple-touch-icon-precomposed', sizes="144x144", href='ico/apple-touch-icon-144-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', sizes="114x114", href='ico/apple-touch-icon-114-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', sizes="72x72", href='ico/apple-touch-icon-72-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', href='ico/apple-touch-icon-57-precomposed.png')
 
-    link(rel='alternate', type='application/atom+xml', title='Latest blog posts | troykershaw.com', href='/atom.xml')  
-    != getBlock("meta").toHTML()
-    != getBlock('styles').add(['/styles/all.min.css']).toHTML()
+        meta(name='twitter:card', content='summary')
+        meta(name='twitter:domain', content='#{site.url}')
+        meta(name='twitter:site', content='@#{site.twitter}')
+        meta(name='twitter:creator', content='@#{site.twitter}')
+        meta(name='twitter:title', content='#{document.title}')
+        meta(name='twitter:description', content='#{getPreparedDescription()}')
 
-  body
-    #layout.pure-g-r
-      .sidebar.pure-u
-        header.header.pure-u-1
-          #social-menu.pure-menu.pure-menu-open.pure-menu-horizontal
-            ul
-              each item in site.social
-                li
-                  a(href='#{item.url}', title='#{item.name}')
-                    i.icon-2x(class='#{item.icon}')
-          
-          h1.brand-title
-            a(href='/')= site.author
-          h2.brand-tagline= site.tagline          
-          nav.nav
-            .pure-menu.pure-menu-open
-              ul
-                each item in site.nav
-                  li
-                    a.pure-button.nav-button(href='#{item.url}', title='#{item.name}')
-                      i(class='#{item.icon}')
-                      | #{item.name}
-                   
-      
-      .content.pure-u-1
-        gcse:searchresults
-        #search
-          gcse:searchbox 
-            p Search will appear here shortly
+        link(rel='alternate', type='application/atom+xml', title='Latest blog posts | #{site.url}', href='/atom.xml')  
+        
+        <!-- Bootstrap Core CSS , Custom CSS -->
+        != getBlock('styles').add(['/vendor/css/bootstrap.css','/styles/clean-blog.css']).toHTML()
+
+        <!-- Custom Fonts -->
+        link(rel='stylesheet', type='text/css', href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
+        link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic')
+        link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800')
+            
+    body
+        nav.navbar.navbar-default.navbar-custom.navbar-fixed-top
+            .container-fluid
+                .navbar-header.page-scroll
+                    button.navbar-toggle(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href="/")= site.title
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-right
+                        each item in site.nav
+                            li
+                                a(href='#{item.url}', title='#{item.name}') #{item.name}
+
         != content
-        footer.footer
-          p &copy; 2013 #{site.title}
 
-    script.
-      (function() {
-        var cx = '013004865239519727906:ijxxy7cds70';
-        var gcse = document.createElement('script');
-        gcse.type = 'text/javascript';
-        gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(gcse, s);
-        })();
-    != getBlock('scripts').toHTML()
+        <!-- Footer -->
+        footer.footer
+            .container
+                .row
+                    .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                        ul.list-inline.text-center
+                            li
+                                a(href="#")
+                                    span.fa-stack.fa-lg
+                                        i.fa.fa-cirlce-fa-stack-2x
+                                        i.fa.fa-twitter.fa-stack-1x.fa-inverse
+                            li
+                                a(href="#")
+                                    span.fa-stack.fa-lg
+                                        i.fa.fa-cirlce-fa-stack-2x
+                                        i.fa.fa-facebook.fa-stack-1x.fa-inverse
+                            li
+                                a(href="#")
+                                    span.fa-stack.fa-lg
+                                        i.fa.fa-cirlce-fa-stack-2x
+                                        i.fa.fa-github.fa-stack-1x.fa-inverse
+                p.copyright.text-muted Copyright &copy; 2015 #{site.title}
+
+
+        script(type='text/javascript' src='/scripts/jquery.js')
+        script(type='text/javascript' src='/scripts/bootstrap.js')
+        script(type='text/javascript' src='/scripts/clean-blog.js')

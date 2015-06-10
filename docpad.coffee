@@ -53,11 +53,15 @@ docpadConfig = {
                 icon: 'icon-home'
             ,
                 name: 'About'
-                url: '/'
+                url: '/about'
                 icon: 'icon-home'
             ,
                 name: 'My Stories'
                 url: 'http://netherstories.blogspot.in/'
+                icon: 'icon-pencil'
+            ,
+                name: 'sodidi'
+                url: 'http://sodidi.blogspot.in/'
                 icon: 'icon-pencil'
             ]
             services:
@@ -139,9 +143,9 @@ docpadConfig = {
     # Collections
 
     collections:
-        posts: (database)->
+        posts: ->
             @getCollection("html").findAllLive({relativeOutDirPath: 'blog'}, [date:-1])
-        pages: (database)->
+        pages: ->
             @getCollection("html").findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
             
 
