@@ -2,6 +2,7 @@
 # http://docpad.org/docs/config
 
 moment = require('moment')
+extendr = require('extendr')
 path = require('path')
 
 post_date_regex = new RegExp('([0-9]+-)*')
@@ -15,17 +16,36 @@ docpadConfig = {
 
 	templateData:
         site:
-            url: 'http://www.ramjeeganti.com'
+            extend: extendr.deepExtend.bind(extendr)
+            url: (websiteUrl = "http://www.ramjeeganti.com")
+            title: 'Unknown Unknown -- rAmg' 
             author: 'Ramjee Ganti'
+            email: 'hello@ramjeeganti.com'
+            heading: 'Unknown Unknown'
+            subheading: """
+                Welcome to your new <t>links.docpad</t> website!
+            """
+            # Footer
+            footnote: """
+                This website was created with <t>links.author</t>’s <t>links.docpad</t>
+            """
+            copyright: """
+                    Your chosen license should go here...
+                    Not sure what a license is? Refer to the
+                    <code>README.md</code> file included in this website.
+            """
+            description: 'Unknown Unknown -- rAmg'
+            keywords:''
+
             twitter: 'gantir'
             twitterUrl: 'https://twitter.com/gantir'
             github: 'gantir'
             githubUrl: 'https://github.com/gantir'
-            email: 'hello@ramjeeganti.com'
+            
             emailUrl: 'mailto:hello@ramjeeganti.com'
             feedUrl: '/feed'
-            title: 'Unknown Unknown -- rAmg' 
-            description: 'Unknown Unknown -- rAmg'
+            
+            
             tagline: 'Unknown Unknown'
             nav: [
                 name: 'Home'
@@ -49,11 +69,11 @@ docpadConfig = {
 
             social: [
                 name: 'Github'
-                url: 'https://github.com/gantir'
+                url: '//github.com/#{envConfig.TWITTER_USERNAME}'
                 icon: 'icon-github-sign'
             ,
                 name: 'Twitter'
-                url: 'https://twitter.com/gantir'
+                url: 'https://twitter.com/#{envConfig.GITHUB_USERNAME}'
                 icon: 'icon-twitter-sign'
             ,
                 name: 'Feed'
@@ -69,6 +89,20 @@ docpadConfig = {
 
         # -----------------------------
         # Helper Functions
+
+      # Get Gravatar URL
+        getGravatarUrl: (email,size) ->
+            hash = require('crypto').createHash('md5').update(email).digest('hex')
+            url = "//www.gravatar.com/avatar/#{hash}.jpg"
+            if size then url += "?s=#{size}"
+            return url
+
+        # Get Profile Feeds
+        getSocialFeeds: (socialID) ->
+            feeds = {}
+            for feedID,feedKey of @site.social[socialID].profile.feeds
+                feeds[feedID] = @feedr.feeds[feedKey]
+            return feeds
 
         # Get the prepared site/document title
         # Often we would like to specify particular formatting to our page's title
@@ -105,9 +139,11 @@ docpadConfig = {
     # Collections
 
     collections:
-        posts: ->
+        posts: (database)->
             @getCollection("html").findAllLive({relativeOutDirPath: 'blog'}, [date:-1])
-    
+        pages: (database)->
+            @getCollection("html").findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
+            
 
     # =================================
     # Plugins
@@ -122,7 +158,17 @@ docpadConfig = {
             aliases:
                 csharp: 'cs'
 
-
+    links:
+      docpad: '<a href="//github.com/docpad/docpad" title="Visit on GitHub">DocPad</a>'
+      historyjs: '<a href="//github.com/balupton/history.js" title="Visit on GitHub">History.js</a>'
+      opensource: '<a href="//en.wikipedia.org/wiki/Open-source_software" title="Visit on Wikipedia">Open-Source</a>'
+      html5: '<a href="//en.wikipedia.org/wiki/HTML5" title="Visit on Wikipedia">HTML5</a>'
+      javascript: '<a href="//en.wikipedia.org/wiki/JavaScript" title="Visit on Wikipedia">JavaScript</a>'
+      nodejs: '<a href="//nodejs.org/" title="Visit Website">Node.js</a>'
+      author: '<a href="//ramjeeganti.com" title="Visit Website">Ramjee Ganti</a>'
+      cclicense: '<a href="//creativecommons.org/licenses/by/3.0/" title="Visit Website">Creative Commons Attribution License</a>'
+      mitlicense: '<a href="//creativecommons.org/licenses/MIT/" title="Visit Website">MIT License</a>'
+      contact: '<a href="mailto:hello@ramjeeganti.com" title="Email me">Email</a>'
 
     # =================================
     # DocPad Events
@@ -160,6 +206,7 @@ docpadConfig = {
                 if post.get('ignore')
                   return
                 originalFilename = post.get('outFilename')
+                originalBasename = post.get('outBasename')
                 originalOutPath = post.get('outDirPath')
                 console.log '**** ' + originalFilename
                 matches = /(\d\d\d\d)-(\d\d)-(\d\d)/.exec(originalFilename)
@@ -169,14 +216,17 @@ docpadConfig = {
                   return
                 date = new Date(matches[1] + '-' + matches[2] + '-' + matches[3])
                 newFilename = originalFilename.replace(post_date_regex, '')
+                newBasename = originalBasename.replace(post_date_regex, '')
                 newOutPath = path.join(originalOutPath, matches[1], matches[2], matches[3], newFilename)
                 
-                newUrl = '/' + matches[1] + '/' + matches[2] + '/' + newFilename
+                newUrl = '/'+ post.get('relativeOutDirPath') + '/' + matches[1] + '/' + matches[2] + '/'+ matches[3] + '/' + newBasename
+                console.log newUrl
                 # ensure original urls are kept
                 originalUrl = post.get('originalUrl')
                 if originalUrl and originalUrl != newUrl
                   throw 'Urls do not match "' + originalUrl + '" <-> "' + newUrl + '"'
                 post.set 'outPath', newOutPath
+                post.set 'outBasename', newBasename
                 post.setUrl newUrl
                 count = count + 1
                 return

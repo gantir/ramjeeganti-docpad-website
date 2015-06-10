@@ -1,5 +1,6 @@
 # Sensitive
 aws-keys.json
+.env
 
 # Docpad
 gzip
