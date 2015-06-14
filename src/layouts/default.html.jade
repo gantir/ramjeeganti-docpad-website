@@ -59,21 +59,12 @@ html(lang='en')
                 .row
                     .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
                         ul.list-inline.text-center
-                            li
-                                a(href="#")
-                                    span.fa-stack.fa-lg
-                                        i.fa.fa-cirlce-fa-stack-2x
-                                        i.fa.fa-twitter.fa-stack-1x.fa-inverse
-                            li
-                                a(href="#")
-                                    span.fa-stack.fa-lg
-                                        i.fa.fa-cirlce-fa-stack-2x
-                                        i.fa.fa-facebook.fa-stack-1x.fa-inverse
-                            li
-                                a(href="#")
-                                    span.fa-stack.fa-lg
-                                        i.fa.fa-cirlce-fa-stack-2x
-                                        i.fa.fa-github.fa-stack-1x.fa-inverse
+                            each item in site.social
+                                li
+                                    a(href="#{item.url}")
+                                        span.fa-stack.fa-lg
+                                            i.fa.fa-cirlce-fa-stack-2x
+                                            i(class='fa fa-#{item.slug} fa-stack-1x fa-inverse')
                 p.copyright.text-muted Copyright &copy; 2015 #{site.title}
 
 

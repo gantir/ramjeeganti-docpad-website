@@ -3,7 +3,7 @@ layout: post
 title: One month challenge - November 2013
 description: One month challenge - November 2013
 date: 2013-11-01 13:11
-categories: 
+tags: 
 	- 1month
 	- 1month-start
 author: "Ramjee Ganti"

@@ -73,19 +73,26 @@ docpadConfig = {
 
             social: [
                 name: 'Github'
-                url: '//github.com/#{envConfig.TWITTER_USERNAME}'
+                slug: 'github'
+                url:  '//github.com/#{envConfig.GITHUB_USERNAME}'
+                icon: 'icon-github-sign'
+            ,
+                name: 'Facebook'
+                slug: 'facebook'
+                url:  '//facebook.com/#{envConfig.FACEBOOK_USERNAME}'
                 icon: 'icon-github-sign'
             ,
                 name: 'Twitter'
-                url: 'https://twitter.com/#{envConfig.GITHUB_USERNAME}'
+                slug: 'twitter'
+                url:  'https://twitter.com/#{envConfig.TWITTER_USERNAME}'
                 icon: 'icon-twitter-sign'
             ,
                 name: 'Feed'
-                url: '/feed'
+                url:  '/feed'
                 icon: 'icon-rss-sign'
             ,
                 name: 'Email'
-                url: 'mailto:hello@ramjeeganti.com'
+                url:  'mailto:hello@ramjeeganti.com'
                 icon: 'icon-envelope'
             ]
             
@@ -135,6 +142,10 @@ docpadConfig = {
         getFormattedDate: (date)  ->
             moment(date).format 'D MMM YYYY'
 
+        getTagUrl: (tag) ->
+            slug = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+            "/tags/#{slug}/"
+
     # Ignore Custom Patterns
     # Can be set to a regex of custom patterns to ignore from the scanning process
     ignoreCustomPatterns: /DRAFT/
@@ -144,7 +155,26 @@ docpadConfig = {
 
     collections:
         posts: ->
-            @getCollection("html").findAllLive({relativeOutDirPath: 'blog'}, [date:-1])
+            @getCollection("html").findAllLive({relativeOutDirPath: 'blog'}, [date:-1]).on "add", (model) ->
+                model.setMetaDefaults({
+                    layout:'post',
+                    author: 'Ramjee Ganti',
+                    date: moment(new Date).format 'YYYY-MM-DD hh:ss'
+                })
+        projects: ->
+            @getCollection("html").findAllLive({relativeOutDirPath: 'projects'}, [date:-1]).on "add", (model) ->
+                model.setMetaDefaults({
+                    layout:'projects',
+                    author: 'Ramjee Ganti',
+                })
+        stories: ->
+            @getCollection("html").findAllLive({relativeOutDirPath: 'stories'}, [date:-1]).on "add", (model) ->
+                model.setMetaDefaults({
+                    layout:'stories',
+                    author: 'Ramjee Ganti',
+                })
+        homepage: ->
+            @getCollection("html").findAllLive({relativeOutDirPath: $in: ['blog','projects','pictures']},[{date: -1}])            
         pages: ->
             @getCollection("html").findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
             
@@ -158,6 +188,9 @@ docpadConfig = {
             posts: -1
         cleanurls:
             trailingSlashes: false
+        tagging:
+            collectionName: 'posts'
+            indexPageLowercase: true
         highlightjs:
             aliases:
                 csharp: 'cs'

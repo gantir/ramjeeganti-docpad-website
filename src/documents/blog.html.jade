@@ -19,7 +19,8 @@ layout: default
                             h3.post-subtitle= post.description
                         p.post-meta Posted by 
                             a(href="#")= post.author 
-                            | &nbsp;on #{post.date.toDateString()}
+                            | &nbsp;on #{post.date.toDateString()} under
+                            span.post-tag &nbsp;#{post.tags}
                     hr  
                 ul.pager
                     li.next
